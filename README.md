@@ -25,7 +25,6 @@ Newtbase website repository
 
 1.  NewtBase:
 
-        svn update xxx
         git xxx
 
 2.  django-blastplus:
