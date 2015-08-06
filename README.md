@@ -25,7 +25,7 @@ Newtbase website repository
 
 1.  NewtBase:
 
-        svn update ~/workspace/code/django/newtbase
+        svn update xxx
         git xxx
 
 2.  django-blastplus:
