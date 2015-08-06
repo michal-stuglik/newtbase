@@ -1,0 +1,91 @@
+{% load staticfiles %}
+<div class="well nbsite_boxstyle">
+    <h3>NewtBase</h3>
+
+    <p>
+        The Newtbase contains genomic resources obtained through transcriptome sequencing of the <i>Lissotriton
+        montandoni/vulgaris</i> newts. Huge salamander genomes contain large amounts of repetitive sequences, therefore
+        transcriptome sequencing is an efficient way of reducing complexity and obtaining genome-wide information. For
+        more background about the evolutionary biology of the <i>Lissotriton vulgaris/montandoni</i> system see our
+        <a href="/publications">publications</a>
+    </p>
+
+    <p>
+        Paired-end (2 x 100 bp) Illumina RNASeq data were obtained from the liver of six <i>L.
+        montandoni</i> and six <i>L. vulgaris</i> individuals (overall 362 mln reads, on average 30 mln reads per
+        sample) and the spleen of two <i>L. vulgaris</i> individuals (108 mln reads). Transcriptome was de novo
+        assembled using <a href="http://trinityrnaseq.github.io/"> Trinity</a> and redundancy of the Trinity assembly
+        was reduced using the approach of <a href="{% static 'pdf/Stuglik et al._2014.pdf' %}"> Stuglik et al. 2014</a>.
+        Reads from both species were assembled together because sequence divergence between the two species is low and
+        shared polymorphisms are abundant, both due to the relatively recent ancestry and due to ongoing hybridization.
+        Transcriptome resources are available for blast-searching and download. The liver reference transcriptome
+        obtained from a single <i>Lissotriton helveticus</i> individual, 9.8 mln reads is also available for download
+    </p>
+
+    <p>
+        In addition to the reference transcriptome we present a manually curated set of coding sequences of almost 800
+        genes involved in immune response.
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-sm-6 nbsite_sourcebox_outpadds">
+        <div class="nbsite_boxstyle nbsite_sourcebox">
+            <h3>Blast</h3>
+
+            <p>Search through <i>Lissotriton vulgaris/montandoni</i> transcriptome gene models</p>
+
+            <p>
+                <a class="btn btn-lg btn-primary" href="/blast/blastn"
+                   role="button"> BLAST &raquo;</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 nbsite_sourcebox_outpadds">
+        <div class="nbsite_boxstyle nbsite_sourcebox">
+            <h3>Download</h3>
+
+            <p>Download sequence data</p>
+
+            <p>
+                <a class="btn btn-lg btn-primary" href="download"
+                   role="button">Download &raquo;</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6 nbsite_sourcebox_outpadds">
+        <div class="nbsite_boxstyle nbsite_sourcebox">
+            <h3>Publications</h3>
+
+            <p>See our publications on <i>Lissotriton vulgaris/montandoni</i> system</p>
+
+            <p>
+                <a class="btn btn-lg btn-primary" href="/publications"
+                   role="button">Publications &raquo;</a>
+            </p>
+        </div>
+    </div>
+    <!--<div class="col-lg-3 col-sm-6 nbsite_sourcebox_outpadds">-->
+    <!--<div class="nbsite_boxstyle nbsite_sourcebox">-->
+    <!--<h3>Search</h3>-->
+    <!--<p>This example is a quick</p>-->
+    <!--<p>-->
+    <!--<a class="btn btn-lg btn-primary" href="search"-->
+    <!--role="button">Search &raquo;</a>-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="col-lg-3 col-sm-6 nbsite_sourcebox_outpadds">
+        <div class="nbsite_boxstyle nbsite_sourcebox">
+            <h3>About us</h3>
+
+            <p>Read more about project and the authors</p>
+
+            <p>
+                <a class="btn btn-lg btn-primary" href="about"
+                   role="button">About us &raquo;</a>
+            </p>
+        </div>
+    </div>
+</div>

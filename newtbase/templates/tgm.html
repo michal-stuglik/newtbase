@@ -1,0 +1,158 @@
+{% extends "__base.html" %}
+
+{% block title %} NewtBase - {{ transcript.transcript_id }} {% endblock %}
+
+{% block content %}
+
+
+<div class="well nbsite_boxstyle" xmlns="http://www.w3.org/1999/html">
+    <h3> contig: <strong> {{ transcript.transcript_id }}</strong> </h3>
+    <h4> gene: <strong> {{ gene_name }} </strong></h4>
+    <h4> protein: <strong> {{ protein_name }}</strong></h4>
+    <h4> lenght: <strong> {{ transcript.get_sequence_length }} bp</strong></h4>
+    <!--<h4> <a href="#"> download as fasta </a>-->
+    <!--<span class="glyphicon glyphicon-download-alt" aria-hidden="true"> sss</span>-->
+    <!--</h4>-->
+
+</div>
+
+<div class="well nbsite_boxstyle" style="word-wrap:break-word">
+     <h3>  <strong> Sequence </strong><a href="/download_contig_as_fasta/{{ transcript.transcript_id }}"><span class="glyphicon glyphicon-download-alt"> </span></a></h3>
+   <!--<h4>  <a href="/download_contig_as_fasta/{{ transcript.transcript_id }}"><span class="glyphicon glyphicon-download-alt"> </span> download as fasta </a></h4>-->
+    <p>
+        {{ transcript.sequence }}
+    </p>
+</div>
+
+<div class="well nbsite_boxstyle" style="word-wrap:break-word">
+ <h3> <strong>Blast</strong> </h3>
+
+    {% if blast_list_all_dbs|length > 0 %}
+    <div class="nbsite_boxstyle">
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>accession</th>
+                <th>gene name</th>
+                <th>protein name</th>
+                <th>organism</th>
+                <th>database</th>
+                <th>e-value</th>
+                <th>score</th>
+                <th>ident %</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for blast in blast_list_all_dbs %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href='{{ blast.get_db_url }}'>{{ blast.accession_id }}</a></td>
+
+                <td>{{ blast.accession_fk.gene_name }}</td>
+                <td>{{ blast.accession_fk.protein_name }}</td>
+                <td>{{ blast.accession_fk.organism }}</td>
+
+                <td>{{ blast.database }}</td>
+
+                <td>{{ blast.evalue }}</td>
+                <td>{{ blast.bitscore }}</td>
+                <td>{{ blast.percent_identity }}</td>
+            </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+
+</div>
+
+<div class="well nbsite_boxstyle" style="word-wrap:break-word">
+ <h3> <strong>ORF</strong> </h3>
+
+    {% if orfs|length > 0 %}
+    <div class="nbsite_boxstyle">
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>orf_id</th>
+                <th>transcript</th>
+                <th>length</th>
+                <th>strand</th>
+                <th>start</th>
+                <th>end</th>
+                <th align="center">download</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for orf in orfs %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ orf.orf_id }}</td>
+
+                <td>{{ orf.transcript }}</td>
+                <td>{{ orf.length }}</td>
+                <td>{{ orf.strand }}</td>
+
+                <td>{{ orf.start }}</td>
+                <td>{{ orf.end }}</td>
+                <td align="center"><a href="/download_orf_as_fasta/{{ orf.orf_id }}"><span class="glyphicon glyphicon-download-alt" > </span> </a></td>
+                <!--<td style="text-wrap:normal;word-wrap:break-word">{{ orf.peptide }}</td>-->
+
+            </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+</div>
+
+<div class="well nbsite_boxstyle" style="word-wrap:break-word">
+ <h3> <strong>GO</strong> </h3>
+
+
+
+     {% if gos_list|length > 0 %}
+    <div class="nbsite_boxstyle">
+
+
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>#</th>
+
+                <th>accession</th>
+                <th>ontology</th>
+                <th>name</th>
+                <th>definition</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for go in gos_list %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+
+                <td><a href='http://amigo.geneontology.org/amigo/term/{{ go.id }}'>{{ go.id }}</a></td>
+                <td>{{ go.category}}</td>
+                <td>{{ go.name }}</td>
+                <td>{{ go.description }}</td>
+
+            </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

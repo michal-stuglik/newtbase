@@ -1,0 +1,11 @@
+django >= 1.7
+psycopg2
+biopython
+django-blastplus
+
+# testing apps
+nose
+django-nose
+coverage
+model_mommy
+
