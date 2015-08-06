@@ -15,7 +15,7 @@ Newtbase website repository
 
 3.  django-blastplus:
 
-        pip install c
+        pip install django-blastplus
 
 3.  Blast DB setup e.g. :
 
