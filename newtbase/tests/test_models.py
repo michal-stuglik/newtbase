@@ -17,10 +17,18 @@ class TranscriptTestMommy(TestCase):
 
 
 class TranscriptTestMommy(TestCase):
+    def setUp(self):
+        self.o = mommy.make(Transcript)
+
+    def tearDown(self):
+        self.o.delete()
+
     def test_transcript(self):
-        o = mommy.make(Transcript)
-        self.assertEqual(o.__unicode__(), o.transcript_id)
-        self.assertTrue(o.sequence is not None)
+        self.assertEqual(self.o.__unicode__(), self.o.transcript_id)
+        self.assertTrue(self.o.sequence is not None)
+
+        # def test_sequence_length(self):
+        #     self.assertTrue(len(self.o.sequence) > 0)
 
 
 class OrfTestMommy(TestCase):

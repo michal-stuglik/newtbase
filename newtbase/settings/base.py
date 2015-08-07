@@ -67,9 +67,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "../static"),
 )
 
-# # testing suit
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
 
 DOWNLOAD_DATA = {
     "LvLm_tgm": os.path.join(BASE_DIR, "../db/ref_trans/ref_trans_LvLm.fa.tar.gz"),
@@ -91,3 +88,14 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+
+# # testing suit
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=newtbase, blastplus',
+    '--cover-inclusive',
+    '--verbosity=2',
+]

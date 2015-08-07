@@ -8,7 +8,7 @@ class Transcript(models.Model):
 
     transcript_id = models.CharField(primary_key=True, max_length=100)
     gene_id = models.CharField(max_length=100)
-    sequence = models.TextField()
+    sequence = models.TextField(null=False)
 
     objects = models.Manager()
 

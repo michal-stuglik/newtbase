@@ -8,6 +8,10 @@ from django.template import RequestContext
 
 from models import Transcript, Blast, Orf, Go, GoUniprotMapper
 
+from newtbase.settings.base import DOWNLOAD_DATA
+from django.http import StreamingHttpResponse
+
+
 
 # Create your views here.
 
@@ -39,10 +43,6 @@ def publications(request):
     assert request.method == 'GET'
     # do_something_for_get()
     return render_to_response('publications.html')
-
-
-from newtbase.settings.base import DOWNLOAD_DATA
-from django.http import StreamingHttpResponse
 
 
 def send_zipfile(request):
@@ -208,6 +208,7 @@ def download_orf_as_fasta(request, orf_name):
 
 
 def get_tgm_by_name(request, tgm_name):
+
     # transcript = Transcript.objects.get(transcript_id=tgm_name)
     transcript = get_object_or_404(Transcript, transcript_id=tgm_name)
 
@@ -224,7 +225,6 @@ def get_tgm_by_name(request, tgm_name):
         if best_blast.accession_fk:
             gene_name, protein_name = best_blast.accession_fk.gene_name, best_blast.accession_fk.protein_name
 
-    # blast_list_all_dbs = Blast.objects.filter(transcript=transcript).order_by("evalue", "accession_id").distinct("evalue", "accession_id")
     blast_list_all_dbs = Blast.objects.filter(transcript=transcript)
 
     # leave only unique accession ids
