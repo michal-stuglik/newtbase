@@ -12,36 +12,28 @@ from newtbase.settings.base import DOWNLOAD_DATA
 from django.http import StreamingHttpResponse
 
 
-
-# Create your views here.
-
 def home(request):
     assert request.method == 'GET'
-    # do_something_for_get()
     return render_to_response('index.html')
 
 
 def about(request):
     assert request.method == 'GET'
-    # do_something_for_get()
     return render_to_response('about.html')
 
 
 def download(request):
     assert request.method == 'GET'
-    # do_something_for_get()
     return render_to_response('download.html')
 
 
 def search(request):
     assert request.method == 'GET'
-    # do_something_for_get()
     return render_to_response('search.html')
 
 
 def publications(request):
     assert request.method == 'GET'
-    # do_something_for_get()
     return render_to_response('publications.html')
 
 
@@ -208,7 +200,6 @@ def download_orf_as_fasta(request, orf_name):
 
 
 def get_tgm_by_name(request, tgm_name):
-
     # transcript = Transcript.objects.get(transcript_id=tgm_name)
     transcript = get_object_or_404(Transcript, transcript_id=tgm_name)
 

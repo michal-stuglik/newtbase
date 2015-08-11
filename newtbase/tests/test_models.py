@@ -1,7 +1,6 @@
 """ Test module for models. """
 
 from django.test import TestCase
-from django import test
 from model_mommy import mommy
 from newtbase.models import Transcript, Orf, Accession, Blast, Go, GoUniprotMapper
 
