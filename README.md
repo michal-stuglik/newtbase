@@ -1,41 +1,71 @@
-# newtbase
-Newtbase website repository
+NewtBase
+========
+
+The NewtBase site repository (http://newtbase.eko.uj.edu.pl/). It contains genomic resources obtained through transcriptome sequencing of the Lissotriton montandoni/vulgaris newts
+and tools (web Blast+) to mine resources with external sequences.
 
 
-### Install
+Requirements
+------------
+
+####  Python 2.7
+
+####   pip & virtualenv (optional)
+
+    sudo apt-get install python-pip python-dev build-essential
+    sudo pip install --upgrade pip
+    sudo pip install --upgrade virtualenv
 
 
-1.  BioPython:
+####   Django 1.7-1.8
 
-        pip install biopython
+    pip install django
 
-2.  Python-PostgreSQL Database Adapter:
 
-        pip install psycopg2
+####   Python-PostgreSQL Database Adapter
 
-3.  django-blastplus:
+    (e.g. with pip) pip install psycopg2
+
+
+#### BioPython
+
+       (e.g. with pip) pip install biopython
+
+
+####  django-blastplus:
 
         pip install django-blastplus
 
-3.  Blast DB setup e.g. :
 
-        makeblastdb -in reference_helveticus.fa -dbtype nucl -parse_seqids -hash_index
+Installation
+------------
 
-### Update
 
-1.  NewtBase:
+1.  Clone site
 
-        git xxx
+        git clone https://github.com/michal-stuglik/newtbase.git
 
-2.  django-blastplus:
 
-        pip install --upgrade django-blastplus
-
-3.  update/reload static files:
+2.  Collect static files
 
         python manage.py collectstatic
 
-4.  WWW server restart e.g. :
+3.  Setup database
 
-        sudo service apache2 restart
+        to be complemented ...
+
+
+4.  Setup server WWW
+
+        to be complemented ...
+
+
+
+
+Update
+------
+
+        to be complemented ...
+
+
 
