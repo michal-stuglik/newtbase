@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.core.servers.basehttp import FileWrapper
 from django.template import RequestContext
 
-from models import Transcript, Blast, Orf, Go, GoUniprotMapper
+from models import Transcript, Blast, Orf, GoUniprotMapper
 
 from newtbase.settings.base import DOWNLOAD_DATA
 from django.http import StreamingHttpResponse

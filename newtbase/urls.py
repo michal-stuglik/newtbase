@@ -34,24 +34,29 @@ urlpatterns = patterns('',
                        url(r'^download_orf_as_fasta/([c]\d{1,}[_][g]\d{1,}[_][i]\d{1,}[|][m][.]\d{1,})/$', views.download_orf_as_fasta),
 
                        # # newtbase url/templates override
-                       url(r'^blast/blastn/$', blast_view.blastn, {'template_init': 'blast.html', 'template_result': 'blast_results.html',
-                                                                   'extra_context': assign_protein_data_to_blast_results}),
+                       url(r'^blast/blastn/$', blast_view.blastn,
+                           {'template_init': 'blast.html', 'template_result': 'blast_results.html',
+                            'extra_context': assign_protein_data_to_blast_results}),
 
-                       url(r'^blast/tblastn/$', blast_view.tblastn, {'template_init': 'blast.html', 'template_result': 'blast_results.html',
-                                                                     'extra_context': assign_protein_data_to_blast_results}),
+                       url(r'^blast/tblastn/$', blast_view.tblastn,
+                           {'template_init': 'blast.html', 'template_result': 'blast_results.html',
+                            'extra_context': assign_protein_data_to_blast_results}),
 
-                       url(r'^blast/blast/$', blast_view.blast, {'template_init': 'blast.html', 'template_result': 'blast_results.html',
-                                                                 'extra_context': assign_protein_data_to_blast_results}),
+                       url(r'^blast/blast/$', blast_view.blast,
+                           {'template_init': 'blast.html', 'template_result': 'blast_results.html',
+                            'extra_context': assign_protein_data_to_blast_results}),
 
 
-                       ##overriding templates and behavior for blastplus app
-                       # url(r'^blast/blastn/$', blast_view.blastn, {'template_init': 'blastplus/blast.html', 'template_result': 'blastplus/blast_results.html',
-                       #                                             # 'blast_db': BLAST_DB_NUCL,
-                       #                                             'extra_context': assign_protein_data_to_blast_results}),
+                       #overriding templates and behavior for blastplus app
+                       # url(r'^blast/blastn/$', blast_view.blastn,
+                       #     {'template_init': 'blastplus/blast.html', 'template_result': 'blastplus/blast_results.html',
+                       #      # 'blast_db': BLAST_DB_NUCL,
+                       #      'extra_context': assign_protein_data_to_blast_results}),
                        #
-                       # url(r'^blast/tblastn/$', blast_view.tblastn, {'template_init': 'blastplus/blast.html', 'template_result': 'blastplus/blast_results.html',
-                       #                                               # 'blast_db': BLAST_DB_NUCL,
-                       #                                               'extra_context': assign_protein_data_to_blast_results}),
+                       # url(r'^blast/tblastn/$', blast_view.tblastn,
+                       #     {'template_init': 'blastplus/blast.html', 'template_result': 'blastplus/blast_results.html',
+                       #      # 'blast_db': BLAST_DB_NUCL,
+                       #      'extra_context': assign_protein_data_to_blast_results}),
 
-                       # url(r'^blast/', include('blastplus.urls')),
+                       url(r'^blast/', include('blastplus.urls')),
                        )

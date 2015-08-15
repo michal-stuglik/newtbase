@@ -1,8 +1,4 @@
-"""
-modules with helper classes and functions
-"""
-
-import sys
+""" Module with helper classes and functions. """
 
 
 def assign_protein_data_to_blast_results(blast_records_in_object_and_list):
@@ -13,10 +9,9 @@ def assign_protein_data_to_blast_results(blast_records_in_object_and_list):
 
     from newtbase.models import Transcript, Blast
 
-    try:
-        for blast_record in blast_records_in_object_and_list:
-            for al in blast_record.alignments:
-
+    for blast_record in blast_records_in_object_and_list:
+        for al in blast_record.alignments:
+            try:
                 al.hit_url = "/tgm/{}".format(str(al.hit_def))
                 al.hit_protein_name = "---"
 
@@ -25,9 +20,10 @@ def assign_protein_data_to_blast_results(blast_records_in_object_and_list):
 
                 if len(b) > 0:
                     al.hit_protein_name = "{} / {}".format(b[0].accession_fk.gene_name, b[0].accession_fk.protein_name)
-    except:
-        e = sys.exc_info()[0]
-        sys.stdout.writable(e)
-        pass
+
+            except Exception as inst:
+                print type(inst)  # the exception instance
+                print inst.args  # arguments stored in .args
+                print inst  # __str__ allows args to be printed directly
 
     return blast_records_in_object_and_list

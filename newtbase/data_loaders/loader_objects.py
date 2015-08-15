@@ -102,16 +102,6 @@ def load_Blast(cur):
         if orf_hit:
             orf = Orf.objects.get(orf_id=transcript)
 
-        """
-            transcript_id = models.ForeignKey(Transcript)
-            accession = models.ForeignKey(Accession)
-            database = models.CharField(max_length=100)
-            percent_identity = models.FloatField()
-            evalue = models.FloatField()
-            bitscore = models.FloatField()
-            orf_hit
-        """
-
         # postgres writer
         blast = Blast(transcript_id=t, accession_fk=acc, accession_id=accession_id, database=database,
                       percent_identity=ident, evalue=evalue,
@@ -125,7 +115,7 @@ def load_Blast(cur):
     print "accession_id_notindb_counter:", accession_id_notindb_counter
 
 
-def load_Accession(cur, file_path, accession_set):
+def load_Accession(file_path, accession_set):
     with open(file_path, 'r') as f:
         table_counter = 0
 
@@ -217,13 +207,13 @@ def load_GO_defs(cur):
 
     for row in rows:
 
-        id = row[0]
+        go_id = row[0]
         name = row[1]
         category = row[2]
         desc = row[3]
 
         # postgres writer
-        go = Go(id=id, name=name, category=category, description=desc)
+        go = Go(id=go_id, name=name, category=category, description=desc)
         go.save()
         table_counter += 1
 
@@ -262,36 +252,3 @@ def load_Go_uniprot_mapper(cur):
         saved_counter += 1
         if saved_counter % 100 == 0:
             print 'saved_counter', saved_counter
-
-
-def load_Accession(cur, file_path, accession_set):
-    with open(file_path, 'r') as f:
-        table_counter = 0
-
-        for line in f:
-            if line.startswith("#"): continue
-
-            row = line.strip().split('\t')
-
-            # Accession 	Entry name 	Protein name 	Gene name 	Organism
-            accession_id = row[0]
-
-            if str(accession_id) not in accession_set: continue
-
-            entry_name = row[1]
-            protein_name = row[2]
-            gene_name = None
-            if len(str(row[3]).strip()) != 0:
-                gene_name = row[3]
-            organism = row[4]
-
-            # postgres writer
-            acc = Accession(accession_id=accession_id, entry_name=entry_name, gene_name=gene_name,
-                            protein_name=protein_name, organism=organism)
-            acc.save()
-            table_counter += 1
-
-            if table_counter % 1000 == 0:
-                print 'Accession', table_counter
-
-    print 'All Accession into db:', table_counter
