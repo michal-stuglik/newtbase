@@ -29,12 +29,12 @@ Requirements
 
 #### BioPython
 
-       (e.g. with pip) pip install biopython
+    (e.g. with pip) pip install biopython
 
 
 ####  django-blastplus:
 
-        pip install django-blastplus
+    pip install django-blastplus
 
 
 Installation
@@ -43,21 +43,21 @@ Installation
 
 1.  Clone site
 
-        git clone https://github.com/michal-stuglik/newtbase.git
+    git clone https://github.com/michal-stuglik/newtbase.git
 
 
 2.  Collect static files
 
-        python manage.py collectstatic
+    python manage.py collectstatic
 
 3.  Setup database
 
-        to be complemented ...
+    to be complemented ...
 
 
 4.  Setup server WWW
 
-        to be complemented ...
+    to be complemented ...
 
 
 
