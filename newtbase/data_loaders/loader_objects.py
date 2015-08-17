@@ -38,6 +38,7 @@ def blast_annotation_extractor(cur):
 
 
 def load_Blast(cur):
+
     # sqlite reader
     cur.execute("SELECT * FROM blastdbase")
     rows = cur.fetchall()

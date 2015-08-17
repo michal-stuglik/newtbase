@@ -37,24 +37,24 @@ def publications(request):
     return render_to_response('publications.html')
 
 
-def send_zipfile(request):
-    """
-    Create a ZIP file on disk and transmit it in chunks of 8KB,
-    without loading the whole file into memory. A similar approach can
-    be used for large dynamic PDF files.
-    """
-    temp = tempfile.TemporaryFile()
-    archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)
-    for index in range(10):
-        filename = __file__  # Select your files here.
-        archive.write(filename, 'file%d.txt' % index)
-    archive.close()
-    wrapper = FileWrapper(temp)
-    response = HttpResponse(wrapper, content_type='application/zip')
-    response['Content-Disposition'] = 'attachment; filename=test.zip'
-    response['Content-Length'] = temp.tell()
-    temp.seek(0)
-    return response
+# def send_zipfile(request):
+#     """
+#     Create a ZIP file on disk and transmit it in chunks of 8KB,
+#     without loading the whole file into memory. A similar approach can
+#     be used for large dynamic PDF files.
+#     """
+#     temp = tempfile.TemporaryFile()
+#     archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)
+#     for index in range(10):
+#         filename = __file__  # Select your files here.
+#         archive.write(filename, 'file%d.txt' % index)
+#     archive.close()
+#     wrapper = FileWrapper(temp)
+#     response = HttpResponse(wrapper, content_type='application/zip')
+#     response['Content-Disposition'] = 'attachment; filename=test.zip'
+#     response['Content-Length'] = temp.tell()
+#     temp.seek(0)
+#     return response
 
 
 def download_tgm(request):

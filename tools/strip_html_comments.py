@@ -1,7 +1,7 @@
 import re
 
 
-class StripHtmlCommentsMiddleware:
+class StripHtmlCommentsMiddleware(object):
     """
     Strips all html comments from response content.
     """
