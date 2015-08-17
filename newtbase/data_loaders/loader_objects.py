@@ -85,13 +85,10 @@ def load_Blast(cur):
             accession_id_notindb_counter += 1
             accession_id_notindb_set.add("{}\t{}".format(fullaccession, accession_id))
             if not fullaccession.startswith("UniRef90"): continue
-            # continue
 
         table_counter += 1
         if table_counter % 100 == 0:
             print 'table_counter', table_counter
-
-        # continue
 
         if not fullaccession.startswith("UniRef90"):
             acc = Accession.objects.get(accession_id=accession_id)

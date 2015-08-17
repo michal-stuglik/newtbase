@@ -47,7 +47,7 @@ urlpatterns = patterns('',
                             'extra_context': assign_protein_data_to_blast_results}),
 
 
-                       #overriding templates and behavior for blastplus app
+                       # #overriding templates and behavior for blastplus app
                        # url(r'^blast/blastn/$', blast_view.blastn,
                        #     {'template_init': 'blastplus/blast.html', 'template_result': 'blastplus/blast_results.html',
                        #      # 'blast_db': BLAST_DB_NUCL,
