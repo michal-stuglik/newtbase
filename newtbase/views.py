@@ -37,126 +37,50 @@ def publications(request):
     return render_to_response('publications.html')
 
 
-# def send_zipfile(request):
-#     """
-#     Create a ZIP file on disk and transmit it in chunks of 8KB,
-#     without loading the whole file into memory. A similar approach can
-#     be used for large dynamic PDF files.
-#     """
-#     temp = tempfile.TemporaryFile()
-#     archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)
-#     for index in range(10):
-#         filename = __file__  # Select your files here.
-#         archive.write(filename, 'file%d.txt' % index)
-#     archive.close()
-#     wrapper = FileWrapper(temp)
-#     response = HttpResponse(wrapper, content_type='application/zip')
-#     response['Content-Disposition'] = 'attachment; filename=test.zip'
-#     response['Content-Length'] = temp.tell()
-#     temp.seek(0)
-#     return response
+def download_data_package(request, download_data_key, out_file_name):
+    """ Generic download method for compressed data.
+        Download snippet source https://djangosnippets.org/snippets/365/
+    """
+
+    assert request.method == 'GET'
+
+    filename = DOWNLOAD_DATA[download_data_key]
+    wrapper = FileWrapper(file(filename))
+
+    response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(out_file_name)
+
+    return response
 
 
 def download_tgm(request):
-    """
-    https://djangosnippets.org/snippets/365/
-
-    """
-
-    assert request.method == 'GET'
-
-    filename = DOWNLOAD_DATA['LvLm_tgm']
-    wrapper = FileWrapper(file(filename))
-
-    response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
-    response['Content-Disposition'] = 'attachment; filename="Lvulg_x_Lmont_tgm.tar.gz"'
-
-    return response
+    """Dowload TGM for Lv & Lm. """
+    return download_data_package(request, 'LvLm_tgm', "Lvulg_x_Lmont_tgm.tar.gz")
 
 
 def download_L_helveticus_tgm(request):
-    """
-    https://djangosnippets.org/snippets/365/
-
-    """
-
-    assert request.method == 'GET'
-
-    filename = DOWNLOAD_DATA['Lh_tgm']
-    wrapper = FileWrapper(file(filename))
-
-    response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
-    response['Content-Disposition'] = 'attachment; filename="Lhelveticus_tgm.tar.gz"'
-
-    return response
+    """Download TGM for Lh. """
+    return download_data_package(request, 'Lh_tgm', "Lhelveticus_tgm.tar.gz")
 
 
 def download_mips(request):
-    """
-    https://djangosnippets.org/snippets/365/
-
-    """
-
-    assert request.method == 'GET'
-
-    filename = DOWNLOAD_DATA['mips']
-    wrapper = FileWrapper(file(filename))
-
-    response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
-    response['Content-Disposition'] = 'attachment; filename="mips.tar.gz"'
-
-    return response
+    """Download mips markers. """
+    return download_data_package(request, 'mips', "mips.tar.gz")
 
 
 def download_immune_genes(request):
-    """
-    https://djangosnippets.org/snippets/365/
-
-    """
-
-    assert request.method == 'GET'
-
-    filename = DOWNLOAD_DATA['immune_gene']
-    wrapper = FileWrapper(file(filename))
-
-    response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
-    response['Content-Disposition'] = 'attachment; filename="immune_gene.tar.gz"'
-
-    return response
+    """Download immune genes. """
+    return download_data_package(request, 'immune_gene', "immune_gene.tar.gz")
 
 
 def download_mtdna(request):
-    """
-    https://djangosnippets.org/snippets/365/
-
-    """
-
-    assert request.method == 'GET'
-
-    filename = DOWNLOAD_DATA['mtdna']
-    wrapper = FileWrapper(file(filename))
-
-    response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
-    response['Content-Disposition'] = 'attachment; filename="mtdna.tar.gz"'
-
-    return response
+    """Download mtDNA. """
+    return download_data_package(request, 'mtdna', "mtdna.tar.gz")
 
 
 def download_orfs(request):
-    """
-    https://djangosnippets.org/snippets/365/
-
-    """
-
-    assert request.method == 'GET'
-
-    filename = DOWNLOAD_DATA['orfs']
-    wrapper = FileWrapper(file(filename))
-
-    response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
-    response['Content-Disposition'] = 'attachment; filename="orfs.tar.gz"'
-
-    return response
+    """Download ORFs. """
+    return download_data_package(request, 'orfs', "orfs.tar.gz")
 
 
 def download_contig_as_fasta(request, contig_name):
