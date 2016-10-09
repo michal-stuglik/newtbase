@@ -1,4 +1,4 @@
-django >= 1.7
+django >= 1.10
 psycopg2
 biopython
 django-blastplus >= 0.3.1

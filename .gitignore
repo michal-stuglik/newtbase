@@ -61,3 +61,4 @@ tmp/
 newtbase/settings/prod.py
 newtbase/settings/devel.py
 .idea/
+/.venv/
