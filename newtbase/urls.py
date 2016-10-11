@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib import admin
 
 admin.autodiscover()
@@ -6,7 +6,7 @@ from newtbase import views
 from blastplus import views as blast_view
 from newtbase.utils import assign_protein_data_to_blast_results
 
-urlpatterns = patterns('',
+urlpatterns = ['',
                        # Examples:
                        # url(r'^blog/', include('blog.urls')),
 
@@ -59,4 +59,4 @@ urlpatterns = patterns('',
                        #      'extra_context': assign_protein_data_to_blast_results}),
 
                        url(r'^blast/', include('blastplus.urls')),
-                       )
+                       ]
