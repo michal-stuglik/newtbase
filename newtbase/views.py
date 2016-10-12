@@ -3,7 +3,9 @@ import tempfile
 
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
-from django.core.servers.basehttp import FileWrapper
+# from django.core.servers.basehttp import FileWrapper
+from django.core.files import File
+
 from django.template import RequestContext
 
 from models import Transcript, Blast, Orf, GoUniprotMapper
@@ -45,7 +47,7 @@ def download_data_package(request, download_data_key, out_file_name):
     assert request.method == 'GET'
 
     filename = DOWNLOAD_DATA[download_data_key]
-    wrapper = FileWrapper(file(filename))
+    wrapper = File(file(filename))
 
     response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(out_file_name)
@@ -96,7 +98,7 @@ def download_contig_as_fasta(request, contig_name):
     ff.write(">{}\n".format(contig_name))
     ff.write("{}\n".format(transcript.sequence))
 
-    wrapper = FileWrapper(file(ff.name))
+    wrapper = File(file(ff.name))
     response = StreamingHttpResponse(wrapper, content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(contig_name, "fasta")
 
@@ -114,7 +116,7 @@ def download_orf_as_fasta(request, orf_name):
     ff.write(">{}\n".format(orf_name))
     ff.write("{}\n".format(orf.peptide))
 
-    wrapper = FileWrapper(file(ff.name))
+    wrapper = File(file(ff.name))
     response = StreamingHttpResponse(wrapper, content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(orf_name, "fasta")
 

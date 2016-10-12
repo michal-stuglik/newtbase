@@ -1,6 +1,7 @@
 ## NewtBase ##
 
-The NewtBase site repository (http://newtbase.eko.uj.edu.pl/). It contains genomic resources obtained through transcriptome sequencing of the Lissotriton montandoni/vulgaris newts and tools (web Blast+) to mine resources with external sequences.
+The NewtBase site repository (http://newtbase.eko.uj.edu.pl/). 
+It contains genomic resources obtained through transcriptome sequencing of the Lissotriton montandoni/vulgaris newts and tools (web Blast+) to mine resources with external sequences.
 
 
 [![Code Health](https://landscape.io/github/michal-stuglik/newtbase/master/landscape.svg?style=flat)](https://landscape.io/github/michal-stuglik/newtbase/master)
