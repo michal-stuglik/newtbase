@@ -12,7 +12,6 @@ SECRET_KEY = 'set-key-here'  # set-secret-key-here
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 DATABASES = {
