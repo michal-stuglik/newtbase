@@ -44,18 +44,29 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'newtbase.urls'
 
-TEMPLATE_DIRS = [
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(BASE_DIR, "templates"),
-    os.path.join(BASE_DIR, "templates_blast"),
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, "templates"),
+            os.path.join(BASE_DIR, "templates_blast"),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
 ]
-
-# TEMPLATE_CONTEXT_PROCESSORS = (
-#     # 'django.core.context_processors.auth',
-#     # 'django.core.context_processors.debug',
-#     # 'django.core.context_processors.i18n',
-#     # 'django.core.context_processors.media',
-# )
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
