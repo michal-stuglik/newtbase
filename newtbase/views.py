@@ -1,42 +1,36 @@
-import zipfile
 import tempfile
 
-from django.http import HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
-# from django.core.servers.basehttp import FileWrapper
 from django.core.files import File
-
-from django.template import RequestContext
+from django.http import StreamingHttpResponse
+from django.shortcuts import get_object_or_404, render
 
 from models import Transcript, Blast, Orf, GoUniprotMapper
-
 from newtbase.settings.base import DOWNLOAD_DATA
-from django.http import StreamingHttpResponse
 
 
 def home(request):
     assert request.method == 'GET'
-    return render_to_response('index.html')
+    return render(request=request, template_name='index.html')
 
 
 def about(request):
     assert request.method == 'GET'
-    return render_to_response('about.html')
+    return render(request=request, template_name='about.html')
 
 
 def download(request):
     assert request.method == 'GET'
-    return render_to_response('download.html')
+    return render(request=request, template_name='download.html')
 
 
 def search(request):
     assert request.method == 'GET'
-    return render_to_response('search.html')
+    return render(request=request, template_name='search.html')
 
 
 def publications(request):
     assert request.method == 'GET'
-    return render_to_response('publications.html')
+    return render(request=request, template_name='publications.html')
 
 
 def download_data_package(request, download_data_key, out_file_name):
@@ -160,15 +154,13 @@ def get_tgm_by_name(request, tgm_name):
             gos_list = [g.go_link for g in gos_mapper]
             # gos = Go.objects.filter()
 
-    return render_to_response('tgm.html', {
+    return render(request=request, template_name='tgm.html', context={
         'transcript': transcript,
         'gene_name': gene_name,
         'protein_name': protein_name,
         'blast_list_all_dbs': blast_list_all_dbs,
         'orfs': orfs,
-        'gos_list': gos_list,
-
-    }, context_instance=RequestContext(request))
+        'gos_list': gos_list})
 
 
 def filter_unique_accession_ids(blast_list_all_dbs):

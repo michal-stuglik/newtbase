@@ -18,7 +18,7 @@ setup(
     long_description=README,
     url='https://github.com/michal-stuglik/newtbase',
     author='Michal Stuglik',
-    author_email='michal@codelabs.info',
+    author_email='stuglik@gmail.com',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django :: 1.7',
