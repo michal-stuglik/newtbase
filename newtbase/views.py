@@ -3,31 +3,37 @@ import tempfile
 from django.core.files import File
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render
+from django.views.decorators.cache import cache_page
 
 from models import Transcript, Blast, Orf, GoUniprotMapper
 from newtbase.settings.base import DOWNLOAD_DATA
 
 
+@cache_page(60 * 15)
 def home(request):
     assert request.method == 'GET'
     return render(request=request, template_name='index.html')
 
 
+@cache_page(60 * 15)
 def about(request):
     assert request.method == 'GET'
     return render(request=request, template_name='about.html')
 
 
+@cache_page(60 * 15)
 def download(request):
     assert request.method == 'GET'
     return render(request=request, template_name='download.html')
 
 
+@cache_page(60 * 15)
 def search(request):
     assert request.method == 'GET'
     return render(request=request, template_name='search.html')
 
 
+@cache_page(60 * 15)
 def publications(request):
     assert request.method == 'GET'
     return render(request=request, template_name='publications.html')
@@ -173,3 +179,28 @@ def filter_unique_accession_ids(blast_list_all_dbs):
             uniq_blast_list.append(blast)
 
     return uniq_blast_list
+
+
+def download_hsp_as_txt(request, hsp_file, contig_name, hsp_num, hsp_length):
+    """
+    https://djangosnippets.org/snippets/365/
+
+    """
+
+    assert request.method == 'GET'
+
+    # transcript = get_object_or_404(Transcript, transcript_id=contig_name)
+    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='{}{}'.format(contig_name, hsp_num), delete=True)
+
+    # ff.write(">{}\n".format(contig_name))
+    # ff.write("{}\n".format(transcript.sequence))
+    # ff.write(table_data)
+    ff.flush()
+
+    wrapper = File(file(ff.name))
+    response = StreamingHttpResponse(wrapper, content_type="application/txt")
+    response['Content-Disposition'] = 'attachment; filename="{}_{}_{}.{}"'.format(contig_name, hsp_num, hsp_length, "txt")
+
+    ff.close()
+
+    return response

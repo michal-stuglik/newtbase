@@ -33,12 +33,14 @@ PROJECT_APPS = [
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'tools.strip_html_comments.StripHtmlCommentsMiddleware'
 )
 
@@ -110,3 +112,15 @@ NOSE_ARGS = [
     '--cover-inclusive',
     '--verbosity=2',
 ]
+
+
+CACHES = {
+    "default": {
+        "BACKEND": 'redis_cache.RedisCache',
+        "LOCATION": "localhost:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "redis"
+    }
+}
