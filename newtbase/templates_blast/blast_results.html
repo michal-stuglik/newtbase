@@ -116,6 +116,10 @@
                         <th>subject end</th>
                         <td>{{ hsp.sbjct_end }}</td>
                     </tr>
+                    <tr>
+                        <th><a href="/download_hsp_as_txt/?hsp={{ hsp.get_hsp_key_from_cache }}&contig={{ alignment.hit_def }}&length={{ alignment.length }}" title="Save as txt"><span class="glyphicon glyphicon-download-alt"> </span></a></th>
+                        <td></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -130,6 +134,8 @@
     S: {{ hsp.chop_sbjct|get_at_index:forloop.counter0 }}
                         {% endfor %}
                 </pre>
+             <div> <a href="/download_seq_as_fasta/?seq={{ hsp.get_query_key_from_cache }}&seq_type=query" title="save query"><span class="glyphicon glyphicon-download-alt"> </span></a>
+                 <a href="/download_seq_as_fasta/?seq={{ hsp.get_subject_key_from_cache }}&seq_type=subject" title="save subject"><span class="glyphicon glyphicon-download-alt" style="color:red"> </span></a></div>
             </div>
         </div>
     </div>

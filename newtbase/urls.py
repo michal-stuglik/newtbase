@@ -29,6 +29,8 @@ urlpatterns = [
     # annotation download
     url(r'^download_contig_as_fasta/([c]\d{1,}[_][g]\d{1,}[_][i]\d{1,})/$', views.download_contig_as_fasta),
     url(r'^download_orf_as_fasta/([c]\d{1,}[_][g]\d{1,}[_][i]\d{1,}[|][m][.]\d{1,})/$', views.download_orf_as_fasta),
+    url(r'^download_hsp_as_txt/$', views.download_hsp_as_txt),
+    url(r'^download_seq_as_fasta/$', views.download_seq_as_fasta),
 
     # # newtbase url/templates override
     url(r'^blast/blastn/$', blast_view.blastn,

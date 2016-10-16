@@ -1,12 +1,17 @@
 import tempfile
 
+from django.core.cache import cache
 from django.core.files import File
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
+from django.views.defaults import page_not_found
 
 from models import Transcript, Blast, Orf, GoUniprotMapper
 from newtbase.settings.base import DOWNLOAD_DATA
+
+
+# from django.http.Http404 import HttpResponseNotFound
 
 
 @cache_page(60 * 15)
@@ -181,7 +186,7 @@ def filter_unique_accession_ids(blast_list_all_dbs):
     return uniq_blast_list
 
 
-def download_hsp_as_txt(request, hsp_file, contig_name, hsp_num, hsp_length):
+def download_hsp_as_txt(request):
     """
     https://djangosnippets.org/snippets/365/
 
@@ -189,17 +194,47 @@ def download_hsp_as_txt(request, hsp_file, contig_name, hsp_num, hsp_length):
 
     assert request.method == 'GET'
 
-    # transcript = get_object_or_404(Transcript, transcript_id=contig_name)
-    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='{}{}'.format(contig_name, hsp_num), delete=True)
+    cache_key = request.GET.get('hsp')
+    length = request.GET.get('length')
+    contig = request.GET.get('contig')
 
-    # ff.write(">{}\n".format(contig_name))
-    # ff.write("{}\n".format(transcript.sequence))
-    # ff.write(table_data)
-    ff.flush()
+    if not cache.has_key(cache_key):
+        return page_not_found(request, exception=None, template_name='404.html')
+
+    hsp_string = cache.get(cache_key)
+
+    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='hsp', delete=True)
+    ff.write(hsp_string)
 
     wrapper = File(file(ff.name))
     response = StreamingHttpResponse(wrapper, content_type="application/txt")
-    response['Content-Disposition'] = 'attachment; filename="{}_{}_{}.{}"'.format(contig_name, hsp_num, hsp_length, "txt")
+    response['Content-Disposition'] = 'attachment; filename="hsp_{}_{}.{}"'.format(contig, str(length), "txt")
+
+    ff.close()
+
+    return response
+
+
+def download_seq_as_fasta(request):
+
+    assert request.method == 'GET'
+
+    cache_key = request.GET.get('seq')
+    seq_type = request.GET.get('seq_type')
+    if len(str(seq_type)) == 0: seq_type = "sequence"
+
+    if not cache.has_key(cache_key):
+        return page_not_found(request, exception=None, template_name='404.html')
+
+    key_string = cache.get(cache_key)
+
+    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='seq', delete=True)
+    ff.write(">{}\n".format("hsp_{}".format(str(seq_type))))
+    ff.write("{}\n".format(key_string))
+
+    wrapper = File(file(ff.name))
+    response = StreamingHttpResponse(wrapper, content_type="application/fasta")
+    response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(seq_type, "fasta")
 
     ff.close()
 
