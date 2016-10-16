@@ -89,8 +89,8 @@ DOWNLOAD_DATA = {
 
 # database as list of choice: overriding blastplus defaults
 BLAST_DB_NUCL_CHOICE = (
-(os.path.join(BASE_DIR, "../db/blast_db/LvLm/reference_transcriptome.fa"), "Transcriptome gene models-Lv/Lm",),)
-# )(os.path.join(BASE_DIR, 'db/blast_db/Lh/reference_helveticus.fa'), "Transcriptome gene models-Lh", ),)
+(os.path.join(BASE_DIR, "../db/blast_db/LvLm/reference_transcriptome.fa"), "Transcriptome gene models-Lv/Lm",),
+(os.path.join(BASE_DIR, '../db/blast_db/Lh/reference_helveticus.fa'), "Transcriptome gene models-Lh", ),)
 
 # BLAST database override for newtbase!
 from blastplus import settings as blast_settings
