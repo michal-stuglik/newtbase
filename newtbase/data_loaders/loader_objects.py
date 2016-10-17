@@ -1,11 +1,11 @@
 """ Methods for annotation data loading into database. """
 
+# transcript class
+from newtbase.models import Transcript, Orf, Accession, Blast, Go, GoUniprotMapper
+
 # Annotation data
 DB_PATH = 'Trinotate.sqlite'
 ACCESSION_PATH = 'uniprot_annot'
-
-# transcript class
-from newtbase.models import Transcript, Orf, Accession, Blast, Go, GoUniprotMapper
 
 
 def blast_annotation_extractor(cur):
@@ -37,8 +37,7 @@ def blast_annotation_extractor(cur):
     return accession_set
 
 
-def load_Blast(cur):
-
+def load_blast(cur):
     # sqlite reader
     cur.execute("SELECT * FROM blastdbase")
     rows = cur.fetchall()
@@ -113,7 +112,7 @@ def load_Blast(cur):
     print "accession_id_notindb_counter:", accession_id_notindb_counter
 
 
-def load_Accession(file_path, accession_set):
+def load_accession(file_path, accession_set):
     with open(file_path, 'r') as f:
         table_counter = 0
 
@@ -146,7 +145,7 @@ def load_Accession(file_path, accession_set):
     print 'All Accession into db:', table_counter
 
 
-def load_Transcript(cur):
+def load_transcript(cur):
     table_counter = 0
 
     # sqlite reader
@@ -167,7 +166,7 @@ def load_Transcript(cur):
             print 'Transcript', table_counter
 
 
-def load_Orf(cur):
+def load_orf(cur):
     table_counter = 0
 
     # sqlite reader
@@ -196,7 +195,7 @@ def load_Orf(cur):
             print 'Orf', table_counter
 
 
-def load_GO_defs(cur):
+def load_go_defs(cur):
     table_counter = 0
 
     # sqlite reader
@@ -219,7 +218,7 @@ def load_GO_defs(cur):
             print 'Go', table_counter
 
 
-def load_Go_uniprot_mapper(cur):
+def load_go_uniprot_mapper(cur):
     table_counter = 0
     saved_counter = 0
 

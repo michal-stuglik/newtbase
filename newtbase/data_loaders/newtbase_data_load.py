@@ -12,12 +12,12 @@ try:
     # data load
     # accession_set = blast_annotation_extractor(cur)
     # print("acc_set_length", len(accession_set))
-    # load_Accession(cur, ACCESSION_PATH, accession_set)
-    # load_Transcript(cur)
-    # load_Orf(cur)
-    # load_Blast(cur)
-    # load_GO_defs(cur)
-    # load_Go_uniprot_mapper(cur)
+    loader_objects.load_accession(cur, ACCESSION_PATH, accession_set)
+    loader_objects.load_transcript(cur)
+    loader_objects.load_orf(cur)
+    loader_objects.load_blast(cur)
+    loader_objects.load_go_defs(cur)
+    loader_objects.load_go_uniprot_mapper(cur)
 
     print "data loaded!"
 
