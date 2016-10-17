@@ -73,13 +73,12 @@ TEMPLATES = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_ROOT = '/static_root/' #dbsettings.STATIC_ROOT
+STATIC_ROOT = '/static_root/'  # dbsettings.STATIC_ROOT
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "../static"),
 )
-
 
 DOWNLOAD_DATA = {
     "LvLm_tgm": os.path.join(BASE_DIR, "../db/ref_trans/ref_trans_LvLm.fa.tar.gz"),
@@ -88,20 +87,36 @@ DOWNLOAD_DATA = {
 }
 
 # database as list of choice: overriding blastplus defaults
-BLAST_DB_NUCL_CHOICE = (
-(os.path.join(BASE_DIR, "../db/blast_db/LvLm/reference_transcriptome.fa"), "Transcriptome gene models-Lv/Lm",),
-(os.path.join(BASE_DIR, '../db/blast_db/Lh/reference_helveticus.fa'), "Transcriptome gene models-Lh", ),)
+# BLAST_DB_NUCL_CHOICE = (
+#     (os.path.join(BASE_DIR, "../db/blast_db/LvLm/reference_transcriptome.fa"), "Transcriptome gene models-Lv/Lm",),
+#     (os.path.join(BASE_DIR, '../db/blast_db/Lh/reference_helveticus.fa'), "Transcriptome gene models-Lh",),)
+
+BLAST_DB_NUCL_LIST = [
+    {
+        "name": "Lv_Lm",
+        "path": os.path.join(BASE_DIR, '../db/blast_db/LvLm/reference_transcriptome.fa'),
+        "desc": "Transcriptome gene models-Lv/Lm",
+        "annotated": True, },
+    {
+        "name": "Lh",
+        "path": os.path.join(BASE_DIR, '../db/blast_db/Lh/reference_helveticus.fa'),
+        "desc": "Transcriptome gene models-Lh",
+        "annotated": False, },
+]
+
+BLAST_DB_NUCL_CHOICE = [(db["path"], db["desc"]) for db in BLAST_DB_NUCL_LIST]
 
 # BLAST database override for newtbase!
 from blastplus import settings as blast_settings
+
 blast_settings.BLAST_DB_NUCL_CHOICE = BLAST_DB_NUCL_CHOICE
+blast_settings.BLAST_DB_NUCL_LIST = BLAST_DB_NUCL_LIST
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 
 # # testing suit
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -112,7 +127,6 @@ NOSE_ARGS = [
     '--cover-inclusive',
     '--verbosity=2',
 ]
-
 
 CACHES = {
     "default": {

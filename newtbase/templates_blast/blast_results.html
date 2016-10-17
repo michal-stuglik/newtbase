@@ -40,7 +40,11 @@
             {% for alignment in br.alignments %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td><a href='{{ alignment.hit_url }}'>{{ alignment.hit_def }}</a></td>
+                {% if annotated %}
+                    <td><a href='{{ alignment.hit_url }}'>{{ alignment.hit_def }}</a></td>
+                {% else %}
+                    <td>{{ alignment.hit_def }}</td>
+                {% endif %}
                 <td>{{ br.query }}</td>
                 <td>{{ alignment.length }}</td>
                 <td>{{ alignment.best_evalue }}
