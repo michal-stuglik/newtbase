@@ -198,7 +198,7 @@ def download_hsp_as_txt(request):
     length = request.GET.get('length')
     contig = request.GET.get('contig')
 
-    if not cache.has_key(cache_key):
+    if cache_key not in cache:
         return page_not_found(request, exception=None, template_name='404.html')
 
     hsp_string = cache.get(cache_key)
@@ -223,7 +223,7 @@ def download_seq_as_fasta(request):
     seq_type = request.GET.get('seq_type')
     if len(str(seq_type)) == 0: seq_type = "sequence"
 
-    if not cache.has_key(cache_key):
+    if cache_key not in cache:
         return page_not_found(request, exception=None, template_name='404.html')
 
     key_string = cache.get(cache_key)
