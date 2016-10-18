@@ -21,8 +21,8 @@ setup(
     author_email='stuglik@gmail.com',
     classifiers=[
         'Environment :: Web Environment',
-        'Framework :: Django :: 1.7',
-        'Framework :: Django :: 1.8',
+        'Framework :: Django',
+        'Framework :: Django :: 1.10',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
