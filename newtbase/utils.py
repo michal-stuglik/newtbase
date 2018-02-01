@@ -22,8 +22,8 @@ def assign_protein_data_to_blast_results(blast_records_in_object_and_list):
                     al.hit_protein_name = "{} / {}".format(b[0].accession_fk.gene_name, b[0].accession_fk.protein_name)
 
             except Exception as inst:
-                print type(inst)  # the exception instance
-                print inst.args  # arguments stored in .args
-                print inst  # __str__ allows args to be printed directly
+                print(type(inst))  # the exception instance
+                print(inst.args)  # arguments stored in .args
+                print(inst)  # __str__ allows args to be printed directly
 
     return blast_records_in_object_and_list

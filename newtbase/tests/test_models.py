@@ -2,6 +2,7 @@
 
 from django.test import TestCase
 from model_mommy import mommy
+
 from newtbase.models import Transcript, Orf, Accession, Blast, Go, GoUniprotMapper
 
 """ Example
@@ -39,7 +40,7 @@ class OrfTestMommy(TestCase):
         self.o.delete()
 
     def test_orf(self):
-        self.assertEquals(self.o.__unicode__(),self.o.orf_id)
+        self.assertEquals(self.o.__unicode__(), self.o.orf_id)
         self.assertTrue(isinstance(self.o.transcript, Transcript))
 
 
@@ -96,7 +97,6 @@ class GoUniprotMapperTestMommy(TestCase):
 
     def test_gouniprot(self):
         self.assertTrue(isinstance(self.o, GoUniprotMapper))
-
 
 # if __name__ == '__main__':
 #     test.main()

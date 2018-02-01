@@ -2,7 +2,7 @@ language: python
 services:
   - redis-server
 python:
-  - "2.7"
+  - "3.4"
 # command to install dependencies
 install:
   - pip install .

@@ -6,8 +6,8 @@ from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
 from django.views.defaults import page_not_found
+from newtbase.models import Transcript, Blast, Orf, GoUniprotMapper
 
-from models import Transcript, Blast, Orf, GoUniprotMapper
 from newtbase.settings.base import DOWNLOAD_DATA
 
 
@@ -216,7 +216,6 @@ def download_hsp_as_txt(request):
 
 
 def download_seq_as_fasta(request):
-
     assert request.method == 'GET'
 
     cache_key = request.GET.get('seq')
