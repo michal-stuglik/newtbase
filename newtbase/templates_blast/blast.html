@@ -1,56 +1,56 @@
 {% extends "__base.html" %} {% block content %}
 
-<div class="row">
-	<div class="col-lg-9 col-md-9 col-sm-12 nbsite_sourcebox_outpadds">
-		<div class="nbsite_boxstyle nbsite_sourcebox blast_input_body">
-			{% if form.errors %}
-			<div class="alert alert-danger" role="alert">
- 			Please correct errors: {{form.errors}}  			
-			</div>
-			{% endif %}
-			<form action="" method="post">
-				{% csrf_token %}
-				<p>{{form.sequence_in_form}}</p>
-                <p><strong>Database:</strong> {{form.blast_db_in_form}}</p>
-				<p><strong>E-value:</strong> {{form.evalue_in_form}}</p>
-				{% if form.matrix_in_form %}
-            	    <p><strong>Matrix:</strong> {{form.matrix_in_form}}</p>
-                    <!--<p><strong>{{form.matrix_in_form.label}}</strong> {{form.matrix_in_form}}</p>-->
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12 nbsite_sourcebox_outpadds">
+            <div class="nbsite_boxstyle nbsite_sourcebox blast_input_body">
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        Please correct errors: {{ form.errors }}
+                    </div>
                 {% endif %}
-			    <p><strong>Word size:</strong> {{form.word_size_in_form}}</p>
-                <p><strong>Sensitivity:</strong> {{form.search_sensitivity_in_form}}</p>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <p>{{ form.sequence_in_form }}</p>
+                    <p><strong>Database:</strong> {{ form.blast_db_in_form }}</p>
+                    <p><strong>E-value:</strong> {{ form.evalue_in_form }}</p>
+                    {% if form.matrix_in_form %}
+                        <p><strong>Matrix:</strong> {{ form.matrix_in_form }}</p>
+                        <!--<p><strong>{{form.matrix_in_form.label}}</strong> {{form.matrix_in_form}}</p>-->
+                    {% endif %}
+                    <p><strong>Word size:</strong> {{ form.word_size_in_form }}</p>
+                    <p><strong>Sensitivity:</strong> {{ form.search_sensitivity_in_form }}</p>
 
-				<input type="submit" value="Search">
-			</form>
+                    <input type="submit" value="Search">
+                </form>
+            </div>
         </div>
-	</div>
-    <div class="col-lg-3 col-md-3 col-sm-12 nbsite_sourcebox_outpadds">
-        <div class="nbsite_boxstyle nbsite_sourcebox">
+        <div class="col-lg-3 col-md-3 col-sm-12 nbsite_sourcebox_outpadds">
+            <div class="nbsite_boxstyle nbsite_sourcebox">
 
-            <button type="button" id="loadSampleData" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
-                Use sample sequence
-            </button>
+                <button type="button" id="loadSampleData" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+                    Use sample sequence
+                </button>
 
-            <script>
-                $('#loadSampleData').on('click', function () {
-                    var $btn = $(this).button('loading');
+                <script>
+                    $('#loadSampleData').on('click', function () {
+                        var $btn = $(this).button('loading');
 
-                    id_sequence_in_form.value = '{{ sequence_sample_in_fasta|escapejs }}';
+                        id_sequence_in_form.value = '{{ sequence_sample_in_fasta|escapejs }}';
 
-                    $btn.button('reset');
-                });
-            </script>
+                        $btn.button('reset');
+                    });
+                </script>
 
-            <h3> Tips </h3>
-            <p>
+                <h3> Tips </h3>
+                <p>
                 <ul>
                     <li>Use sequence in FASTA format</li>
                     <li>Use blastn for nucleotide query and tblastn for protein query</li>
                     <li>Maximum number of sequences per search is {{ blast_max_number_seq_in_input }}</li>
                 </ul>
-            </p>
+                </p>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

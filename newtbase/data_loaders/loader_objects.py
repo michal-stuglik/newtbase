@@ -29,10 +29,10 @@ def blast_annotation_extractor(cur):
             acc = accession.split("_")[1]
             accession_set.add(acc)
         else:
-            print "check this!"
+            print("check this!")
 
         if table_counter % 1000 == 0:
-            print 'Accessions in Blast', table_counter
+            print('Accessions in Blast: {}'.format(table_counter))
 
     return accession_set
 
@@ -48,7 +48,7 @@ def load_blast(cur):
     accession_id_notindb_set = set()
 
     accessions = set([str(a.accession_id) for a in Accession.objects.all()[:]])
-    print "# accessions", len(accessions)
+    print("# accessions: {}".format(len(accessions)))
 
     for row in rows:
 
@@ -73,7 +73,7 @@ def load_blast(cur):
             accession_id = fullaccession.split("|")[1]
         elif fullaccession.startswith("UniRef90"):
             accession_id = fullaccession.split("_")[1]
-            accession_id = fullaccession
+            # accession_id = fullaccession
 
         t = Transcript.objects.get(transcript_id=transcript_id)
 
@@ -88,7 +88,7 @@ def load_blast(cur):
 
         table_counter += 1
         if table_counter % 100 == 0:
-            print 'table_counter', table_counter
+            print('table_counter: {}'.format(table_counter))
 
         if not fullaccession.startswith("UniRef90"):
             acc = Accession.objects.get(accession_id=accession_id)
@@ -106,10 +106,10 @@ def load_blast(cur):
         blast.save()
 
         if table_counter % 1000 == 0:
-            print 'Blast', table_counter
+            print('Blast: {}'.format(table_counter))
 
-    print "false_acc_counter:", false_acc_counter
-    print "accession_id_notindb_counter:", accession_id_notindb_counter
+    print("false_acc_counter: {}".format(false_acc_counter))
+    print("accession_id_notindb_counter: {}".format(accession_id_notindb_counter))
 
 
 def load_accession(file_path, accession_set):
@@ -140,9 +140,9 @@ def load_accession(file_path, accession_set):
             table_counter += 1
 
             if table_counter % 1000 == 0:
-                print 'Accession', table_counter
+                print('Accession {}'.format(table_counter))
 
-    print 'All Accession into db:', table_counter
+    print('All Accession into db: {}'.format(table_counter))
 
 
 def load_transcript(cur):
@@ -163,7 +163,7 @@ def load_transcript(cur):
         table_counter += 1
 
         if table_counter % 1000 == 0:
-            print 'Transcript', table_counter
+            print('Transcript {}'.format(table_counter))
 
 
 def load_orf(cur):
@@ -192,7 +192,7 @@ def load_orf(cur):
         table_counter += 1
 
         if table_counter % 1000 == 0:
-            print 'Orf', table_counter
+            print('Orf {}'.format(table_counter))
 
 
 def load_go_defs(cur):
@@ -215,7 +215,7 @@ def load_go_defs(cur):
         table_counter += 1
 
         if table_counter % 1000 == 0:
-            print 'Go', table_counter
+            print('Go {}'.format(table_counter))
 
 
 def load_go_uniprot_mapper(cur):
@@ -233,7 +233,7 @@ def load_go_uniprot_mapper(cur):
 
         table_counter += 1
         if table_counter % 10000 == 0:
-            print 'uniprotindex', table_counter
+            print('uniprotindex {}'.format(table_counter))
 
         # values check:
         a = Accession.objects.filter(entry_name=accession)
@@ -248,4 +248,4 @@ def load_go_uniprot_mapper(cur):
 
         saved_counter += 1
         if saved_counter % 100 == 0:
-            print 'saved_counter', saved_counter
+            print('saved_counter {}'.format(saved_counter))

@@ -1,13 +1,13 @@
 import tempfile
+from wsgiref.util import FileWrapper
 
 from django.core.cache import cache
-from django.core.files import File
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
 from django.views.defaults import page_not_found
-from newtbase.models import Transcript, Blast, Orf, GoUniprotMapper
 
+from newtbase.models import Transcript, Blast, Orf, GoUniprotMapper
 from newtbase.settings.base import DOWNLOAD_DATA
 
 
@@ -52,9 +52,8 @@ def download_data_package(request, download_data_key, out_file_name):
     assert request.method == 'GET'
 
     filename = DOWNLOAD_DATA[download_data_key]
-    wrapper = File(file(filename))
 
-    response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
+    response = StreamingHttpResponse(FileWrapper(open(filename, 'rb')), content_type="application/tar.gz")
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(out_file_name)
 
     return response
@@ -103,8 +102,7 @@ def download_contig_as_fasta(request, contig_name):
     ff.write(">{}\n".format(contig_name))
     ff.write("{}\n".format(transcript.sequence))
 
-    wrapper = File(file(ff.name))
-    response = StreamingHttpResponse(wrapper, content_type="application/fasta")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'rb')), content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(contig_name, "fasta")
 
     ff.close()
@@ -121,8 +119,7 @@ def download_orf_as_fasta(request, orf_name):
     ff.write(">{}\n".format(orf_name))
     ff.write("{}\n".format(orf.peptide))
 
-    wrapper = File(file(ff.name))
-    response = StreamingHttpResponse(wrapper, content_type="application/fasta")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'rb')), content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(orf_name, "fasta")
 
     ff.close()
@@ -206,8 +203,7 @@ def download_hsp_as_txt(request):
     ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='hsp', delete=True)
     ff.write(hsp_string)
 
-    wrapper = File(file(ff.name))
-    response = StreamingHttpResponse(wrapper, content_type="application/txt")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'rb')), content_type="application/txt")
     response['Content-Disposition'] = 'attachment; filename="hsp_{}_{}.{}"'.format(contig, str(length), "txt")
 
     ff.close()
@@ -231,8 +227,7 @@ def download_seq_as_fasta(request):
     ff.write(">{}\n".format("hsp_{}".format(str(seq_type))))
     ff.write("{}\n".format(key_string))
 
-    wrapper = File(file(ff.name))
-    response = StreamingHttpResponse(wrapper, content_type="application/fasta")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'rb')), content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(seq_type, "fasta")
 
     ff.close()
