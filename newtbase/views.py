@@ -89,20 +89,17 @@ def download_orfs(request):
     return download_data_package(request, 'orfs', "orfs.tar.gz")
 
 
-def download_contig_as_fasta(request, contig_name):
-    """
-    https://djangosnippets.org/snippets/365/
-
-    """
-
+def download_contig_as_fasta(request):
     assert request.method == 'GET'
 
+    contig_name = request.GET.get('contig')
+
     transcript = get_object_or_404(Transcript, transcript_id=contig_name)
-    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='contig_name', delete=True)
+    ff = tempfile.NamedTemporaryFile(mode='w+', prefix='contig_name', delete=True)
     ff.write(">{}\n".format(contig_name))
     ff.write("{}\n".format(transcript.sequence))
 
-    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'rb')), content_type="application/fasta")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'r+')), content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(contig_name, "fasta")
 
     ff.close()
@@ -110,8 +107,10 @@ def download_contig_as_fasta(request, contig_name):
     return response
 
 
-def download_orf_as_fasta(request, orf_name):
+def download_orf_as_fasta(request):
     assert request.method == 'GET'
+
+    orf_name = request.GET.get('orf_name')
 
     orf = get_object_or_404(Orf, orf_id=orf_name)
 
@@ -127,7 +126,11 @@ def download_orf_as_fasta(request, orf_name):
     return response
 
 
-def get_tgm_by_name(request, tgm_name):
+def get_tgm_by_name(request):
+    assert request.method == 'GET'
+
+    tgm_name = request.GET.get('contig')
+
     # transcript = Transcript.objects.get(transcript_id=tgm_name)
     transcript = get_object_or_404(Transcript, transcript_id=tgm_name)
 
@@ -200,10 +203,10 @@ def download_hsp_as_txt(request):
 
     hsp_string = cache.get(cache_key)
 
-    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='hsp', delete=True)
+    ff = tempfile.NamedTemporaryFile(mode='w+', prefix='hsp', delete=True)
     ff.write(hsp_string)
 
-    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'rb')), content_type="application/txt")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'r+')), content_type="application/txt")
     response['Content-Disposition'] = 'attachment; filename="hsp_{}_{}.{}"'.format(contig, str(length), "txt")
 
     ff.close()
@@ -223,11 +226,11 @@ def download_seq_as_fasta(request):
 
     key_string = cache.get(cache_key)
 
-    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='seq', delete=True)
+    ff = tempfile.NamedTemporaryFile(mode='w+', prefix='seq', delete=True)
     ff.write(">{}\n".format("hsp_{}".format(str(seq_type))))
     ff.write("{}\n".format(key_string))
 
-    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'rb')), content_type="application/fasta")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'r+')), content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(seq_type, "fasta")
 
     ff.close()

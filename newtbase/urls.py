@@ -15,7 +15,7 @@ urlpatterns = [
     path('about', views.about),
 
     # contigs annotation
-    path('tgm/([c]\d{1,}[_][g]\d{1,}[_][i]\d{1,})/', views.get_tgm_by_name),  # "c100007_g1_i1"
+    path('tgm_contig/', views.get_tgm_by_name),  # "c100007_g1_i1"
 
     # downloads
     path('download', views.download),
@@ -27,10 +27,10 @@ urlpatterns = [
     path('download/orfs', views.download_orfs),
 
     # annotation download
-    path('download_contig_as_fasta/([c]\d{1,}[_][g]\d{1,}[_][i]\d{1,})', views.download_contig_as_fasta),
-    path('download_orf_as_fasta/([c]\d{1,}[_][g]\d{1,}[_][i]\d{1,}[|][m][.]\d{1,})', views.download_orf_as_fasta),
-    path('download_hsp_as_txt', views.download_hsp_as_txt),
-    path('download_seq_as_fasta', views.download_seq_as_fasta),
+    path('download_contig_as_fasta/', views.download_contig_as_fasta),
+    path('download_orf_as_fasta/', views.download_orf_as_fasta),
+    path('download_hsp_as_txt/', views.download_hsp_as_txt),
+    path('download_seq_as_fasta/', views.download_seq_as_fasta),
 
     # # newtbase url/templates override
     path('blast/blastn', blast_view.blastn,

@@ -17,7 +17,7 @@
     </div>
 
     <div class="well nbsite_boxstyle" style="word-wrap:break-word">
-        <h3><strong> Sequence </strong><a href="/download_contig_as_fasta/{{ transcript.transcript_id }}"><span class="glyphicon glyphicon-download-alt"> </span></a></h3>
+        <h3><strong> Sequence </strong><a href="/download_contig_as_fasta/?contig={{ transcript.transcript_id }}"><span class="glyphicon glyphicon-download-alt"> </span></a></h3>
         <!--<h4>  <a href="/download_contig_as_fasta/{{ transcript.transcript_id }}"><span class="glyphicon glyphicon-download-alt"> </span> download as fasta </a></h4>-->
         <p>
             {{ transcript.sequence }}
@@ -101,7 +101,7 @@
 
                             <td>{{ orf.start }}</td>
                             <td>{{ orf.end }}</td>
-                            <td align="center"><a href="/download_orf_as_fasta/{{ orf.orf_id }}"><span class="glyphicon glyphicon-download-alt"> </span> </a></td>
+                            <td align="center"><a href="/download_orf_as_fasta/?orf_name={{ orf.orf_id }}"><span class="glyphicon glyphicon-download-alt"> </span> </a></td>
                             <!--<td style="text-wrap:normal;word-wrap:break-word">{{ orf.peptide }}</td>-->
 
                         </tr>

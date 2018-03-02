@@ -12,7 +12,7 @@ def assign_protein_data_to_blast_results(blast_records_in_object_and_list):
     for blast_record in blast_records_in_object_and_list:
         for al in blast_record.alignments:
             try:
-                al.hit_url = "/tgm/{}".format(str(al.hit_def))
+                al.hit_url = "/tgm_contig/?contig={}".format(str(al.hit_def))
                 al.hit_protein_name = "---"
 
                 t = Transcript.objects.get(transcript_id=al.hit_def)
