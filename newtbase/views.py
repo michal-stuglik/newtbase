@@ -114,11 +114,11 @@ def download_orf_as_fasta(request):
 
     orf = get_object_or_404(Orf, orf_id=orf_name)
 
-    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='orf_name', delete=True)
+    ff = tempfile.NamedTemporaryFile(mode='w+', prefix='orf_name', delete=True)
     ff.write(">{}\n".format(orf_name))
     ff.write("{}\n".format(orf.peptide))
 
-    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'rb')), content_type="application/fasta")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'r')), content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(orf_name, "fasta")
 
     ff.close()
@@ -219,7 +219,8 @@ def download_seq_as_fasta(request):
 
     cache_key = request.GET.get('seq')
     seq_type = request.GET.get('seq_type')
-    if len(str(seq_type)) == 0: seq_type = "sequence"
+    if len(str(seq_type)) == 0:
+        seq_type = "sequence"
 
     if cache_key not in cache:
         return page_not_found(request, exception=None, template_name='404.html')
