@@ -5,6 +5,7 @@ import sys
 
 from newtbase.data_loaders import loader_objects
 
+con = None
 try:
     con = lite.connect(loader_objects.DB_PATH)
     cur = con.cursor()
@@ -19,14 +20,12 @@ try:
     # loader_objects.load_go_defs(cur)
     # loader_objects.load_go_uniprot_mapper(cur)
 
-    print "data loaded!"
+    print("data loaded!")
 
-except lite.Error, e:
-
-    print "Error %s:" % e.args[0]
+except lite.Error as e:
+    print("Error {}:".format(e.args[0]))
     sys.exit(1)
 
 finally:
-
-    if con:
+    if con is not None:
         con.close()

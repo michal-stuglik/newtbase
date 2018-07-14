@@ -1,4 +1,4 @@
-## NewtBase ##
+### NewtBase
 
 The NewtBase site repository (http://newtbase.eko.uj.edu.pl/). 
 It contains genomic resources obtained through transcriptome sequencing of the Lissotriton montandoni/vulgaris newts and tools (web Blast+) to mine resources with external sequences.

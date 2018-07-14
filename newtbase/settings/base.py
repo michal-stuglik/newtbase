@@ -129,12 +129,17 @@ NOSE_ARGS = [
 ]
 
 CACHES = {
-    "default": {
-        "BACKEND": 'redis_cache.RedisCache',
-        "LOCATION": "localhost:6379",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
-        },
-        "KEY_PREFIX": "redis"
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        # 'LOCATION': 'unix:/home/michal/memcached.sock',
+        'LOCATION': '127.0.0.1:11211',
     }
+    # "default": {
+    #     "BACKEND": 'redis_cache.RedisCache',
+    #     "LOCATION": "localhost:6379",
+    #     "OPTIONS": {
+    #         "CLIENT_CLASS": "django_redis.client.DefaultClient"
+    #     },
+    #     "KEY_PREFIX": "redis"
+    # }
 }

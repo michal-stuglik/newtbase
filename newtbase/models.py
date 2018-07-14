@@ -23,7 +23,7 @@ class Orf(models.Model):
     """A class for storing Open reading frames data. """
 
     orf_id = models.CharField(primary_key=True, max_length=100)
-    transcript = models.ForeignKey(Transcript)
+    transcript = models.ForeignKey(Transcript, on_delete=models.CASCADE)
     length = models.IntegerField()
     strand = models.CharField(max_length=1)
     start = models.IntegerField()
@@ -52,11 +52,11 @@ class Blast(models.Model):
     """A class for storing Blast search results and related data. """
 
     id = models.AutoField(primary_key=True)
-    transcript = models.ForeignKey(Transcript)
-    accession_fk = models.ForeignKey(Accession, null=True)
+    transcript = models.ForeignKey(Transcript, on_delete=models.CASCADE)
+    accession_fk = models.ForeignKey(Accession, null=True, on_delete=models.SET_NULL)
     accession_id = models.CharField(max_length=100)
     orf_hit = models.BooleanField(default=False)
-    orf_fk = models.ForeignKey(Orf, null=True)
+    orf_fk = models.ForeignKey(Orf, null=True, on_delete=models.SET_NULL)
     database = models.CharField(max_length=100)
     percent_identity = models.FloatField()
     evalue = models.FloatField()
@@ -103,5 +103,5 @@ class GoUniprotMapper(models.Model):
     """A mapper class between accessions and gene ontology data. """
 
     id = models.AutoField(primary_key=True)
-    accession = models.ForeignKey(Accession, to_field='entry_name')
-    go_link = models.ForeignKey(Go, to_field='id')
+    accession = models.ForeignKey(Accession, to_field='entry_name', on_delete=models.CASCADE)
+    go_link = models.ForeignKey(Go, to_field='id', on_delete=models.CASCADE)

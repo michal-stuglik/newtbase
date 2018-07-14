@@ -1,13 +1,13 @@
 import tempfile
+from wsgiref.util import FileWrapper
 
 from django.core.cache import cache
-from django.core.files import File
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
 from django.views.defaults import page_not_found
 
-from models import Transcript, Blast, Orf, GoUniprotMapper
+from newtbase.models import Transcript, Blast, Orf, GoUniprotMapper
 from newtbase.settings.base import DOWNLOAD_DATA
 
 
@@ -52,9 +52,8 @@ def download_data_package(request, download_data_key, out_file_name):
     assert request.method == 'GET'
 
     filename = DOWNLOAD_DATA[download_data_key]
-    wrapper = File(file(filename))
 
-    response = StreamingHttpResponse(wrapper, content_type="application/tar.gz")
+    response = StreamingHttpResponse(FileWrapper(open(filename, 'rb')), content_type="application/tar.gz")
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(out_file_name)
 
     return response
@@ -90,21 +89,17 @@ def download_orfs(request):
     return download_data_package(request, 'orfs', "orfs.tar.gz")
 
 
-def download_contig_as_fasta(request, contig_name):
-    """
-    https://djangosnippets.org/snippets/365/
-
-    """
-
+def download_contig_as_fasta(request):
     assert request.method == 'GET'
 
+    contig_name = request.GET.get('contig')
+
     transcript = get_object_or_404(Transcript, transcript_id=contig_name)
-    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='contig_name', delete=True)
+    ff = tempfile.NamedTemporaryFile(mode='w+', prefix='contig_name', delete=True)
     ff.write(">{}\n".format(contig_name))
     ff.write("{}\n".format(transcript.sequence))
 
-    wrapper = File(file(ff.name))
-    response = StreamingHttpResponse(wrapper, content_type="application/fasta")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'r+')), content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(contig_name, "fasta")
 
     ff.close()
@@ -112,17 +107,18 @@ def download_contig_as_fasta(request, contig_name):
     return response
 
 
-def download_orf_as_fasta(request, orf_name):
+def download_orf_as_fasta(request):
     assert request.method == 'GET'
+
+    orf_name = request.GET.get('orf_name')
 
     orf = get_object_or_404(Orf, orf_id=orf_name)
 
-    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='orf_name', delete=True)
+    ff = tempfile.NamedTemporaryFile(mode='w+', prefix='orf_name', delete=True)
     ff.write(">{}\n".format(orf_name))
     ff.write("{}\n".format(orf.peptide))
 
-    wrapper = File(file(ff.name))
-    response = StreamingHttpResponse(wrapper, content_type="application/fasta")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'r')), content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(orf_name, "fasta")
 
     ff.close()
@@ -130,7 +126,11 @@ def download_orf_as_fasta(request, orf_name):
     return response
 
 
-def get_tgm_by_name(request, tgm_name):
+def get_tgm_by_name(request):
+    assert request.method == 'GET'
+
+    tgm_name = request.GET.get('contig')
+
     # transcript = Transcript.objects.get(transcript_id=tgm_name)
     transcript = get_object_or_404(Transcript, transcript_id=tgm_name)
 
@@ -203,11 +203,10 @@ def download_hsp_as_txt(request):
 
     hsp_string = cache.get(cache_key)
 
-    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='hsp', delete=True)
+    ff = tempfile.NamedTemporaryFile(mode='w+', prefix='hsp', delete=True)
     ff.write(hsp_string)
 
-    wrapper = File(file(ff.name))
-    response = StreamingHttpResponse(wrapper, content_type="application/txt")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'r+')), content_type="application/txt")
     response['Content-Disposition'] = 'attachment; filename="hsp_{}_{}.{}"'.format(contig, str(length), "txt")
 
     ff.close()
@@ -216,24 +215,23 @@ def download_hsp_as_txt(request):
 
 
 def download_seq_as_fasta(request):
-
     assert request.method == 'GET'
 
     cache_key = request.GET.get('seq')
     seq_type = request.GET.get('seq_type')
-    if len(str(seq_type)) == 0: seq_type = "sequence"
+    if len(str(seq_type)) == 0:
+        seq_type = "sequence"
 
     if cache_key not in cache:
         return page_not_found(request, exception=None, template_name='404.html')
 
     key_string = cache.get(cache_key)
 
-    ff = tempfile.NamedTemporaryFile(mode='w+b', prefix='seq', delete=True)
+    ff = tempfile.NamedTemporaryFile(mode='w+', prefix='seq', delete=True)
     ff.write(">{}\n".format("hsp_{}".format(str(seq_type))))
     ff.write("{}\n".format(key_string))
 
-    wrapper = File(file(ff.name))
-    response = StreamingHttpResponse(wrapper, content_type="application/fasta")
+    response = StreamingHttpResponse(FileWrapper(open(ff.name, 'r+')), content_type="application/fasta")
     response['Content-Disposition'] = 'attachment; filename="{}.{}"'.format(seq_type, "fasta")
 
     ff.close()
