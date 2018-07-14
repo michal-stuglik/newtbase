@@ -2,11 +2,10 @@ language: python
 services:
   - redis-server
 python:
-  - "3.4"
-# command to install dependencies
+  - 3.4
+  - 3.5
+  - 3.6
 install:
-  - pip install .
-  - pip install -r requirements.txt
-# command to run tests
+  - make init
 script:
-  - python manage.py test -v 2
+  - make test

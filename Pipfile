@@ -12,8 +12,6 @@ django = ">=2.0"
 biopython = "*"
 redis = "*"
 django-redis-cache = "*"
-nose = "*"
-django-nose = "*"
 coverage = "*"
 model-mommy = "*"
 requests = "*"
@@ -22,6 +20,8 @@ python-memcached = "*"
 
 [dev-packages]
 
+nose = "*"
+django-nose = "*"
 
 
 [requires]
