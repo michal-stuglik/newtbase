@@ -8,7 +8,7 @@ from newtbase.utils import assign_protein_data_to_blast_results
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('admin', admin.site.urls),
+    # path('admin', admin.site.urls),
 
     path('search', views.search),
     path('publications', views.publications),
