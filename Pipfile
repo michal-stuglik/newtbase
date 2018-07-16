@@ -11,10 +11,6 @@ django = ">=2.0"
 django-blastplus = ">=2"
 "psycopg2-binary" = "*"
 biopython = "*"
-redis = "*"
-django-redis-cache = "*"
-coverage = "*"
-model-mommy = "*"
 requests = "*"
 python-memcached = "*"
 
@@ -23,7 +19,8 @@ python-memcached = "*"
 
 nose = "*"
 django-nose = "*"
-
+model-mommy = "*"
+coverage = "*"
 
 [requires]
 
