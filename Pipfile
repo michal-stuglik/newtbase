@@ -13,14 +13,16 @@ django-blastplus = ">=2"
 biopython = "*"
 requests = "*"
 python-memcached = "*"
-
-
-[dev-packages]
-
 nose = "*"
 django-nose = "*"
 model-mommy = "*"
 coverage = "*"
+uwsgi = "*"
+
+
+[dev-packages]
+
+
 
 [requires]
 
