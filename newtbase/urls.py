@@ -34,16 +34,16 @@ urlpatterns = [
 
     # # newtbase url/templates override
     path('blast/blastn', blast_view.blastn,
-        {'template_init': 'blast.html', 'template_result': 'blast_results.html',
-         'extra_context': assign_protein_data_to_blast_results}),
+         {'template_init': 'blast.html', 'template_result': 'blast_results.html',
+          'extra_context': assign_protein_data_to_blast_results}),
 
     path('blast/tblastn', blast_view.tblastn,
-        {'template_init': 'blast.html', 'template_result': 'blast_results.html',
-         'extra_context': assign_protein_data_to_blast_results}),
+         {'template_init': 'blast.html', 'template_result': 'blast_results.html',
+          'extra_context': assign_protein_data_to_blast_results}),
 
     path('blast/blast', blast_view.blast,
-        {'template_init': 'blast.html', 'template_result': 'blast_results.html',
-         'extra_context': assign_protein_data_to_blast_results}),
+         {'template_init': 'blast.html', 'template_result': 'blast_results.html',
+          'extra_context': assign_protein_data_to_blast_results}),
 
     path('blast', include('blastplus.urls')),
 ]

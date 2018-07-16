@@ -18,6 +18,7 @@ django-nose = "*"
 model-mommy = "*"
 coverage = "*"
 uwsgi = "*"
+django-uwsgi = "*"
 
 
 [dev-packages]

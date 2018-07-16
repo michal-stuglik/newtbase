@@ -27,6 +27,7 @@ PROJECT_APPS = [
     'newtbase',
     'blastplus',
     'django_nose',
+    'django_uwsgi',
     'coverage',
 ]
 

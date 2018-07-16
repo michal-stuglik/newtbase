@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6abdffc1b20b9ee92ca93293e6134b6610810392e0357d11b8c1156cca3358b1"
+            "sha256": "81a80c6488b95d18b2fe404a8ad115dca0b6f0ca0bdf627dc2d1b6665f729251"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -119,6 +119,12 @@
                 "sha256:87663f18cb25f01d56c84ac1ff8a0e6e6a6246264b2549b751cb239d0642e76a"
             ],
             "version": "==1.4.5"
+        },
+        "django-uwsgi": {
+            "hashes": [
+                "sha256:5c8c97f7d3a1f637a7abda05ca00867448a3551bff9729064d703fd0c1d4cdbf"
+            ],
+            "version": "==0.2.1"
         },
         "idna": {
             "hashes": [
