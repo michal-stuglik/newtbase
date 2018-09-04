@@ -7,8 +7,8 @@ name = "pypi"
 
 [packages]
 
-django = ">=2.0"
-django-blastplus = ">=2"
+django = "==2.1.1"
+django-blastplus = "==2.0.1"
 "psycopg2-binary" = "*"
 biopython = "*"
 requests = "*"
