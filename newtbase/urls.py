@@ -1,7 +1,7 @@
-from django.contrib import admin
+# from django.contrib import admin
 from django.urls import path, include
 
-admin.autodiscover()
+# admin.autodiscover()
 from newtbase import views
 from blastplus import views as blast_view
 from newtbase.utils import assign_protein_data_to_blast_results

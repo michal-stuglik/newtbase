@@ -15,20 +15,20 @@ PROJECT_DIR = os.path.join(BASE_DIR, "../")
 
 # Application definition
 PREREQ_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
+    # 'django.contrib.sessions',
+    # 'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
 
 PROJECT_APPS = [
     'newtbase',
     'blastplus',
-    'django_nose',
-    'django_uwsgi',
-    'coverage',
+    # 'django_nose',
+    # 'django_uwsgi',
+    # 'coverage',
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
@@ -38,13 +38,23 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    # 'django.contrib.staticfiles.finders.FileSystemFinder',
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
     'tools.strip_html_comments.StripHtmlCommentsMiddleware'
 )
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    # 'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_ENABLED = True
 ROOT_URLCONF = 'newtbase.urls'
 
 TEMPLATES = [
@@ -59,13 +69,13 @@ TEMPLATES = [
             'context_processors': [
                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
                 # list if you haven't customized them:
-                'django.contrib.auth.context_processors.auth',
+                # 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
-                'django.contrib.messages.context_processors.messages',
+                # 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
@@ -74,7 +84,7 @@ TEMPLATES = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_ROOT = '/static_root/'  # dbsettings.STATIC_ROOT
+# STATIC_ROOT = '/static_root/'  # dbsettings.STATIC_ROOT
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
@@ -118,29 +128,3 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
-# # testing suit
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-package=newtbase, blastplus',
-    '--cover-inclusive',
-    '--verbosity=2',
-]
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        # 'LOCATION': 'unix:/home/michal/memcached.sock',
-        'LOCATION': '127.0.0.1:11211',
-    }
-    # "default": {
-    #     "BACKEND": 'redis_cache.RedisCache',
-    #     "LOCATION": "localhost:6379",
-    #     "OPTIONS": {
-    #         "CLIENT_CLASS": "django_redis.client.DefaultClient"
-    #     },
-    #     "KEY_PREFIX": "redis"
-    # }
-}

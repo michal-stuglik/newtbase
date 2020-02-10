@@ -1,0 +1,5 @@
+django==3.0.3
+psycopg2==2.8.4
+biopython==1.76
+django-blastplus==2.0.5
+python-memcached==1.59

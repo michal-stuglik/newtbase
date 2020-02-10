@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+    db:
+        image: "postgres:12.1"
+        container_name: newtbase-db
+#        restart: always
+        ports:
+            - "5432"
+        environment:
+            POSTGRES_PASSWORD: newtbase
+            POSTGRES_USER: newtbase
+            POSTGRES_NAME: newtbase
+        volumes:
+            - pg-newtbase-data:/var/lib/postgresql/data
+        networks:
+            - newtbase-net
+
+    memcached:
+        image: memcached:1.5.6
+        container_name: newtbase-memcached
+        restart: always
+        entrypoint: memcached -m 256
+        networks:
+            - newtbase-net
+
+    web:
+        build: .
+        container_name: newtbase-app
+#        restart: always
+        ports:
+            - "8001:8001"
+        volumes:
+            - .:/app
+        depends_on:
+          - db
+        networks:
+            - newtbase-net
+
+volumes:
+  pg-newtbase-data:
+
+networks:
+  newtbase-net:

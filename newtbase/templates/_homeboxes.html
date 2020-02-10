@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <div class="well nbsite_boxstyle">
     <h3>NewtBase</h3>
 
@@ -14,8 +14,8 @@
         Paired-end (2 x 100 bp) Illumina RNASeq data were obtained from the liver of six <i>L.
         montandoni</i> and six <i>L. vulgaris</i> individuals (overall 362 mln reads, on average 30 mln reads per
         sample) and the spleen of two <i>L. vulgaris</i> individuals (108 mln reads). Transcriptome was de novo
-        assembled using <a href="http://trinityrnaseq.github.io/"> Trinity</a> and redundancy of the Trinity assembly
-        was reduced using the approach of <a href="{% static 'pdf/Stuglik et al._2014.pdf' %}"> Stuglik et al. 2014</a>.
+        assembled using <a href="https://github.com/trinityrnaseq/trinityrnaseq/wiki"> Trinity</a> and redundancy of the Trinity assembly
+        was reduced using the approach of <a href="{% static 'pdf/Stuglik_et_al_2014.pdf' %}"> Stuglik et al. 2014</a>.
         Reads from both species were assembled together because sequence divergence between the two species is low and
         shared polymorphisms are abundant, both due to the relatively recent ancestry and due to ongoing hybridization.
         Transcriptome resources are available for blast-searching and download. The liver reference transcriptome
