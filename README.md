@@ -11,3 +11,15 @@ It contains genomic resources obtained through transcriptome sequencing of the L
 
 ### Notes ###
 Install, setup, management by project: newtbase-ansible
+
+## on start
+
+### db schema migration
+```shell script
+docker exec newtbase-app python3 manage.py migrate
+```
+
+### db restore (on host)
+```shell script
+docker exec newtbase-db /usr/bin/pg_restore --if-exists --clean --dbname=newtbase --single-transaction --username=newtbase --host=localhost --port=5432 /newtbase-data/newtbase.dump
+```

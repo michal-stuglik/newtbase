@@ -2,7 +2,8 @@ FROM python:3.7
 
 ARG requirements=requirements/prod.txt
 ENV DJANGO_SETTINGS_MODULE=newtbase.settings.prod
-# ENV DJANGO_SETTINGS_MODULE=exemplay.settings.production
+
+RUN apt-get update && apt-get install -y ncbi-blast+
 
 WORKDIR /app
 
@@ -12,15 +13,12 @@ COPY requirements/*.txt /app/requirements/
 RUN pip install -r ${requirements}
 
 # Now copy in our code, and run it
-#COPY . /app
+#ADD blastplus/ blastplus/
 COPY newtbase newtbase
 COPY static static
 COPY manage.py /app/
 
-#RUN python manage.py migrate
-
-# collenct statics
-#RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic
 
 EXPOSE 8001
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]

@@ -2,10 +2,7 @@
 Django settings for newtbase project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
+https://docs.djangoproject.com/en/3.0/topics/settings/
 """
 
 import os
@@ -26,9 +23,6 @@ PREREQ_APPS = [
 PROJECT_APPS = [
     'newtbase',
     'blastplus',
-    # 'django_nose',
-    # 'django_uwsgi',
-    # 'coverage',
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
@@ -50,8 +44,6 @@ MIDDLEWARE_CLASSES = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # other finders..
-    # 'compressor.finders.CompressorFinder',
 )
 
 COMPRESS_ENABLED = True
@@ -81,14 +73,36 @@ TEMPLATES = [
     },
 ]
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-# STATIC_ROOT = '/static_root/'  # dbsettings.STATIC_ROOT
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'newtbase',
+        'USER': 'newtbase',
+        'PASSWORD': 'newtbase',
+        'HOST': 'db'
+    }
+}
+
+# memcached
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'memcached:11211',
+    }
+}
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+STATIC_ROOT = '/app/static_root/'  # dbsettings.STATIC_ROOT
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "../static"),
+    '/app/static',
 )
 
 DOWNLOAD_DATA = {
@@ -124,7 +138,7 @@ blast_settings.BLAST_DB_NUCL_CHOICE = BLAST_DB_NUCL_CHOICE
 blast_settings.BLAST_DB_NUCL_LIST = BLAST_DB_NUCL_LIST
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'CET'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True

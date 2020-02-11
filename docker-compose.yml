@@ -4,7 +4,6 @@ services:
     db:
         image: "postgres:12.1"
         container_name: newtbase-db
-#        restart: always
         ports:
             - "5432"
         environment:
@@ -13,6 +12,7 @@ services:
             POSTGRES_NAME: newtbase
         volumes:
             - pg-newtbase-data:/var/lib/postgresql/data
+            - ./db:/newtbase-data
         networks:
             - newtbase-net
 
@@ -27,11 +27,13 @@ services:
     web:
         build: .
         container_name: newtbase-app
-#        restart: always
         ports:
             - "8001:8001"
+        environment:
+            DJANGO_SETTINGS_MODULE: newtbase.settings.dev
         volumes:
             - .:/app
+#            - ./blastplus:/app/blastplus
         depends_on:
           - db
         networks:
