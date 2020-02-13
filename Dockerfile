@@ -18,7 +18,7 @@ COPY newtbase newtbase
 COPY static static
 COPY manage.py /app/
 
-RUN python manage.py collectstatic
+RUN python manage.py collectstatic --noinput
 
-EXPOSE 8001
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]
+#EXPOSE 8001
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]

@@ -16,7 +16,7 @@ Install, setup, management by project: newtbase-ansible
 
 ### db schema migration
 ```shell script
-docker exec newtbase-app python3 manage.py migrate
+docker exec newtbase-web python3 manage.py migrate
 ```
 
 ### db restore (on host)

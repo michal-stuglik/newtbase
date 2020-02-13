@@ -4,8 +4,9 @@ services:
     db:
         image: "postgres:12.1"
         container_name: newtbase-db
+        restart: always
         ports:
-            - "5432"
+            - 5432
         environment:
             POSTGRES_PASSWORD: newtbase
             POSTGRES_USER: newtbase
@@ -24,15 +25,34 @@ services:
         networks:
             - newtbase-net
 
+    nginx:
+        build: ./nginx
+        restart: always
+        container_name: newtbase-nginx
+        ports:
+            - 8001:80
+        depends_on:
+            - web
+        volumes:
+            - web-static:/app/static_root
+        networks:
+            - newtbase-net
+
     web:
         build: .
-        container_name: newtbase-app
-        ports:
-            - "8001:8001"
-        environment:
-            DJANGO_SETTINGS_MODULE: newtbase.settings.dev
+        container_name: newtbase-web
+        restart: always
+        expose:
+            - "8001"
+#        ports:
+#            - "8001"
+#        environment:
+#            DJANGO_SETTINGS_MODULE: newtbase.settings.dev
+#        command: /usr/local/bin/python manage.py runserver 0.0.0.0:8001
+        command: /usr/local/bin/gunicorn --env DJANGO_SETTINGS_MODULE=newtbase.settings.prod newtbase.wsgi -w 2 -b 0.0.0.0:8001
         volumes:
             - .:/app
+            - web-static:/app/static_root
 #            - ./blastplus:/app/blastplus
         depends_on:
           - db
@@ -40,6 +60,7 @@ services:
             - newtbase-net
 
 volumes:
+  web-static:
   pg-newtbase-data:
 
 networks:

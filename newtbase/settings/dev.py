@@ -1,6 +1,5 @@
 __author__ = 'michal'
 
-from newtbase.settings.base import *
 from newtbase.settings.prod import *
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 

@@ -75,6 +75,7 @@ TEMPLATES = [
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -97,12 +98,12 @@ CACHES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = '/app/static_root/'  # dbsettings.STATIC_ROOT
+STATIC_ROOT = '/app/static_root'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "../static"),
-    '/app/static',
+    # '/app/static',
 )
 
 DOWNLOAD_DATA = {
@@ -142,3 +143,6 @@ TIME_ZONE = 'CET'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
