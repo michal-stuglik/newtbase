@@ -1,7 +1,7 @@
 FROM python:3.7
 
 ARG requirements=requirements/prod.txt
-ENV DJANGO_SETTINGS_MODULE=newtbase.settings.prod
+##ENV DJANGO_SETTINGS_MODULE=newtbase.settings.prod
 
 RUN apt-get update && apt-get install -y ncbi-blast+
 
@@ -17,8 +17,9 @@ RUN pip install -r ${requirements}
 COPY newtbase newtbase
 COPY static static
 COPY manage.py /app/
+COPY .env /app/
 
-RUN python manage.py collectstatic --noinput
+#RUN python manage.py collectstatic --noinput
 
 #EXPOSE 8001
 #CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]

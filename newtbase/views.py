@@ -8,7 +8,7 @@ from django.views.decorators.cache import cache_page
 from django.views.defaults import page_not_found
 
 from newtbase.models import Transcript, Blast, Orf, GoUniprotMapper
-from newtbase.settings.base import DOWNLOAD_DATA
+from newtbase.settings import DOWNLOAD_DATA
 
 
 # from django.http.Http404 import HttpResponseNotFound

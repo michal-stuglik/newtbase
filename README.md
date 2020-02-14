@@ -16,7 +16,9 @@ Install, setup, management by project: newtbase-ansible
 
 ### db schema migration
 ```shell script
-docker exec newtbase-web python3 manage.py migrate
+#docker exec newtbase-web python3 manage.py migrate
+docker-compose -f docker-compose.yml run web python manage.py migrate
+docker-compose -f docker-compose.yml run web python manage.py collectstatic --noinput
 ```
 
 ### db restore (on host)

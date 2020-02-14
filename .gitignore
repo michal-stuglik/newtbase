@@ -63,3 +63,4 @@ newtbase/settings/devel.py
 .idea/
 /.venv/
 /newtbase/.directory
+/.env

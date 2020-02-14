@@ -15,6 +15,28 @@ services:
         networks:
             - newtbase-net
 
+#    memcached:
+#        image: memcached:alpine
+#        container_name: newtbase-memcached
+#        restart: always
+#        entrypoint: memcached -m 256
+#        networks:
+#            - newtbase-net
+
+    nginx:
+        image: nginx:latest
+        restart: always
+        container_name: newtbase-nginx
+        ports:
+            - 8001:80
+        depends_on:
+            - web
+        volumes:
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            - web-static:/app/static_root
+        networks:
+            - newtbase-net
+
     web:
         build: .
         container_name: newtbase-web
@@ -22,13 +44,11 @@ services:
         env_file:
             - ./.env
         ports:
-            - "8001:8001"
-        command: /usr/local/bin/python manage.py runserver 0.0.0.0:8001
-#        command: /usr/local/bin/gunicorn newtbase.wsgi -w 2 -b 0.0.0.0:8001
+            - "8001"
+        command: /usr/local/bin/gunicorn newtbase.wsgi -w 2 -b :8001
         volumes:
             - .:/app
             - web-static:/app/static_root
-#            - ./blastplus:/app/blastplus
         depends_on:
           - db
         networks:
