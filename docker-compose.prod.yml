@@ -15,14 +15,6 @@ services:
         networks:
             - newtbase-net
 
-#    memcached:
-#        image: memcached:alpine
-#        container_name: newtbase-memcached
-#        restart: always
-#        entrypoint: memcached -m 256
-#        networks:
-#            - newtbase-net
-
     nginx:
         image: nginx:latest
         restart: always
