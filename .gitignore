@@ -64,3 +64,4 @@ newtbase/settings/devel.py
 /.venv/
 /newtbase/.directory
 /.env
+/venv/
