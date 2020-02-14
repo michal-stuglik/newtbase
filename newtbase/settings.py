@@ -17,33 +17,28 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = bool(int(os.getenv('DEBUG', False)))
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else ['127.0.0.1', 'localhost']
 
-
 # Application definition
-PREREQ_APPS = [
+INSTALLED_APPS = [
     # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     # 'django.contrib.sessions',
     # 'django.contrib.messages',
     'django.contrib.staticfiles',
-]
-
-PROJECT_APPS = [
     'newtbase',
     'blastplus',
 ]
 
-INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
-
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
-    'tools.strip_html_comments.StripHtmlCommentsMiddleware'
-)
+    'tools.strip_html_comments.StripHtmlCommentsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+]
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
