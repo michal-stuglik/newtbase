@@ -20,7 +20,7 @@ services:
         container_name: newtbase-nginx
         restart: always
         ports:
-            - 8001:80
+            - 8021:80
         depends_on:
             - web
         volumes:
@@ -36,8 +36,8 @@ services:
         env_file:
             - ./.env
         ports:
-            - "8001"
-        command: /usr/local/bin/gunicorn newtbase.wsgi -w 2 -b :8001
+            - "8021"
+        command: /usr/local/bin/gunicorn newtbase.wsgi -w 2 -b :8021
         volumes:
             - .:/app
             - web-static:/app/static_root
